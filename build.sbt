@@ -2,6 +2,7 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 inThisBuild(
   Seq(
+    resolvers          += "jitpack" at "https://jitpack.io",
     organization       := "io.github.outwatch",
     scalaVersion       := crossScalaVersions.value.last,
     crossScalaVersions := Seq("2.13.8", "3.1.3"),
@@ -36,7 +37,7 @@ inThisBuild(
 )
 
 val jsdomVersion   = "13.2.0"
-val colibriVersion = "0.7.0"
+val colibriVersion = "1f04d84"
 
 val isDotty = Def.setting(CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3))
 lazy val commonSettings = Seq(
@@ -93,9 +94,9 @@ lazy val outwatch = project
   .settings(
     name := "outwatch",
     libraryDependencies ++= Seq(
-      "com.raquo"            %%% "domtypes"      % "0.15.1",
-      "com.github.cornerman" %%% "colibri"       % colibriVersion,
-      "com.github.cornerman" %%% "colibri-jsdom" % colibriVersion,
+      "com.raquo"                %%% "domtypes"      % "0.15.1",
+      "com.github.busti.colibri" %%% "colibri"       % colibriVersion,
+      "com.github.busti.colibri" %%% "colibri-jsdom" % colibriVersion,
     ),
   )
 
@@ -108,7 +109,7 @@ lazy val tests = project
     Test / requireJsDomEnv := true,
     installJsdom / version := jsdomVersion,
     libraryDependencies ++= Seq(
-      "com.github.cornerman" %%% "colibri-reactive" % colibriVersion % Test,
+      "com.github.busti.colibri" %%% "colibri-reactive" % colibriVersion % Test,
     ),
   )
 
@@ -137,15 +138,15 @@ lazy val jsdocs = project
     webpackBundlingMode             := BundlingMode.LibraryOnly(),
     scalaJSUseMainModuleInitializer := true,
     libraryDependencies ++= Seq(
-      "org.scala-js"         %%% "scalajs-dom"          % "2.3.0",
-      "com.github.cornerman" %%% "colibri-airstream"    % colibriVersion,
-      "com.github.cornerman" %%% "colibri-zio"          % colibriVersion,
-      "com.github.cornerman" %%% "colibri-fs2"          % colibriVersion,
-      "io.github.cquiroz"    %%% "scala-java-time"      % "2.4.0-M1",
-      "io.github.cquiroz"    %%% "scala-java-time-tzdb" % "2.4.0-M1",
+      "org.scala-js"             %%% "scalajs-dom"          % "2.3.0",
+      "com.github.busti.colibri" %%% "colibri-airstream"    % colibriVersion,
+      "com.github.busti.colibri" %%% "colibri-zio"          % colibriVersion,
+      "com.github.busti.colibri" %%% "colibri-fs2"          % colibriVersion,
+      "io.github.cquiroz"        %%% "scala-java-time"      % "2.4.0-M1",
+      "io.github.cquiroz"        %%% "scala-java-time-tzdb" % "2.4.0-M1",
     ),
     libraryDependencies ++= (if (isDotty.value) Nil
-                             else Seq("com.github.cornerman" %%% "colibri-rx" % colibriVersion)),
+                             else Seq("com.github.busti.colibri" %%% "colibri-rx" % colibriVersion)),
     Compile / npmDependencies ++= Seq(
       "js-beautify" -> "1.14.0",
     ),
