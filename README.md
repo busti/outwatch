@@ -1,4 +1,4 @@
-# Outwatch
+# Foobar
 The Functional and Reactive Web-Frontend Library for Scala.js
 
 [![Typelevel incubator](https://img.shields.io/badge/typelevel-incubator-F51C2B.svg)](http://typelevel.org)
